@@ -13,10 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package openconfig
 
-import gateway "github.com/openconfig/gnmi-gateway/internal"
+import (
+	"testing"
 
-func main() {
-	gateway.Main()
+	"github.com/stretchr/testify/require"
+)
+
+func TestTypeLookup_GetTypeByPath(t *testing.T) {
+	lookup := new(TypeLookup)
+	err := lookup.LoadAllModules("../../oc-models/")
+	require.NoError(t, err)
+
+	require.Equal(t, "counter64", lookup.GetTypeByPath([]string{"interfaces", "interface", "state", "counters", "out-octets"}))
+	require.Empty(t, lookup.GetTypeByPath([]string{"system", "memory", "state"}))
+	require.Empty(t, lookup.GetTypeByPath([]string{"blah", "blah", "state"}))
 }

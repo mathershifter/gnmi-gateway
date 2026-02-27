@@ -26,7 +26,7 @@ download:
 	if [ -d ./oc-models ]; then git --git-dir=./oc-models/.git pull; else git clone https://github.com/openconfig/public.git oc-models; fi
 
 godoc:
-	godoc -http=":6060"
+	go doc -http
 
 imports:
 	goimports -local github.com/openconfig/gnmi-gateway -w -l $(shell find . -type f -name '*.go' -not -path './vendor/*' -not -path '*.pb.go')
@@ -36,7 +36,7 @@ integration:
 	go test -tags=integration -count=1 -cover ./...
 
 lint: imports
-	go fmt ./ ./gateway/...
+	go fmt ./ ./internal/...
 	go vet
 
 release:

@@ -13,10 +13,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package locking_test
 
-import gateway "github.com/openconfig/gnmi-gateway/internal"
+import (
+	"testing"
 
-func main() {
-	gateway.Main()
+	"github.com/stretchr/testify/assert"
+
+	"github.com/openconfig/gnmi-gateway/internal/locking"
+)
+
+func TestNonBlockingLock_Try(t *testing.T) {
+	assertion := assert.New(t)
+
+	lock := locking.NewNonBlockingLock("test-id-12345", "127.0.0.1:0")
+	acquired, err := lock.Try()
+	assertion.True(acquired)
+	assertion.NoError(err)
+
+	acquired, err = lock.Try()
+	assertion.True(acquired)
+	assertion.Errorf(err, "should have a deadlock error")
+
+	assertion.NoError(lock.Unlock())
 }

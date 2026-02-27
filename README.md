@@ -57,12 +57,12 @@ There are a few Target Loaders included with gnmi-gateway that you can use
 right away using the `-TargetLoaders` flag from the command-line. The Target
 Loaders included are:
 
-- [json](./gateway/loaders/json/json.go)
-- [netbox](./gateway/loaders/netbox/netbox.go)
-- [simple](./gateway/loaders/simple/simple.go)
+- [json](./internal/loaders/json/json.go)
+- [netbox](./internal/loaders/netbox/netbox.go)
+- [simple](./internal/loaders/simple/simple.go)
 
 If you'd like to build your own Target Loader see
-[loaders/loader.go](./gateway/loaders/loader.go) for details on how to
+[loaders/loader.go](./internal/loaders/loader.go) for details on how to
 implement the TargetLoader interface.
 
 ### Exporters
@@ -83,12 +83,12 @@ Some Exporters have been included with gnmi-gateway and you can start using them
 by providing a comma-separated list of Exporters from the command-line with the
 `-Exporters` flag. The included Exporters are:
 
-- [debug](./gateway/exporters/debug/debug.go) (log to stdout)
-- [kafka](./gateway/exporters/kafka/kafka.go)
-- [prometheus](./gateway/exporters/prometheus/prometheus.go)
+- [debug](./internalexporters/debug/debug.go) (log to stdout)
+- [kafka](./internalexporters/kafka/kafka.go)
+- [prometheus](./internalexporters/prometheus/prometheus.go)
 
 To build a custom Exporter see
-[exporters/exporter.go](./gateway/exporters/exporter.go) for details on how to
+[exporters/exporter.go](./internalexporters/exporter.go) for details on how to
 implement the Exporter interface.
 
 
@@ -154,7 +154,7 @@ options for configuring gnmi-gateway or want to configure the gateway at
 runtime you can create a .go file that imports the gateway package and create a
 configuration.GatewayConfig instance, passing that to gateway.NewGateway, and 
 then calling StartGateway. For an example of how this is done you can look at
-the code in Main() in gateway/main.go.
+the code in Main() in internalmain.go.
 
 To enable clustering of gnmi-gateway you will need an instance (or ideally a
 cluster) of Apache Zookeeper accessible to all of the gnmi-gateway instances.

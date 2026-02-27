@@ -13,10 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package all
 
-import gateway "github.com/openconfig/gnmi-gateway/internal"
-
-func main() {
-	gateway.Main()
-}
+import (
+	_ "github.com/openconfig/gnmi-gateway/internal/loaders/json"
+	_ "github.com/openconfig/gnmi-gateway/internal/loaders/netbox"
+	_ "github.com/openconfig/gnmi-gateway/internal/loaders/simple"
+)
